@@ -36,12 +36,12 @@
     </article>
     <aside class="sidebar">
       <div class="sidebar-widget">
-        <div class="sidebar-title">Articoli Correlati</div>
+        <div class="sidebar-title">Altri Articoli</div>
         <ul class="sidebar-list">
-          {% assign related = site.posts | where:"categoria",page.categoria | limit:6 %}
-          {% for post in related %}{% unless post.url == page.url %}<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>{% endunless %}{% endfor %}
-          {% assign others = site.posts | limit:6 %}
-          {% for post in others %}{% unless post.url == page.url or post.categoria == page.categoria %}<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>{% endunless %}{% endfor %}
+          {% assign others = site.posts | where_exp:"post","post.url != page.url" | limit:6 %}
+          {% for post in others %}
+          <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+          {% endfor %}
         </ul>
       </div>
       <div class="sidebar-widget">
